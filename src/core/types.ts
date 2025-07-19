@@ -13,7 +13,7 @@ export const MessageValidator = z
     .and(
         z.discriminatedUnion("event", [
             z.object({ event: z.literal("data"), slideNumber: z.number() }),
-            z.object({ event: z.literal("create"), slideData: z.any() }),
+            z.object({ event: z.literal("create"), slideshowData: z.string() }),
             z.object({ event: z.literal("join") }),
             z.object({ event: z.literal("leave") }),
             z.object({

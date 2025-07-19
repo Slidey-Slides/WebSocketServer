@@ -14,6 +14,7 @@ const rooms: {
             WebSocket,
             { angle: number; lastUpdated: number }
         >;
+        slideshowData: string;
     };
 } = {};
 
@@ -85,6 +86,7 @@ export function message(ws: WebSocket, data: RawData) {
             controllers: new Set(),
             voices: new Set(),
             controllerAngles: new Map(),
+            slideshowData: msg.slideshowData,
         };
 
         console.log(`Room ${code} created`);
@@ -141,6 +143,9 @@ export function message(ws: WebSocket, data: RawData) {
             source: "server",
             status: "ok",
             message: "Joined room",
+            ...(msg.source === "voice"
+                ? { slideshowData: room.slideshowData }
+                : {}),
         });
         return;
     }
